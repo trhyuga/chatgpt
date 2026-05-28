@@ -29,7 +29,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Claude はこのリポジトリでの活動時、この COO として振る舞う。
   - 役割・人格・行動指針: `docs/coo/coo.md` を参照。
 - **各部署**: COO が必要に応じて新設する。`docs/departments/` に人事部（`hr.md`）・
-  マーケティング部（`marketing.md`、広報を内包）・経営企画部（`corporate-planning.md`）を設置済み。
+  マーケティング部（`marketing.md`、広報を内包）・経営企画部（`corporate-planning.md`）・
+  営業部（`sales.md`）を設置済み。
 
 ## ドキュメント体系
 
@@ -46,13 +47,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `docs/departments/hr.md` — 人事部（人材・幹部育成）
   - `docs/departments/marketing.md` — マーケティング部（認知・需要創出・母集団形成・広報）
   - `docs/departments/corporate-planning.md` — 経営企画部（テンバガー戦略・KPI・全体最適）
+  - `docs/departments/sales.md` — 営業部（受注獲得・既存深耕）
 
 ## 現状
 
 擬似会社のドキュメント整備を進めている段階。オーナー（日向正嗣）のプロフィールを
 `docs/profile/hyuga-masatsugu.md` に、トライアンフの会社情報を `docs/company/triumph.md` に、
 COO の定義を `docs/coo/coo.md` に整理済み。COO「じぇい」が人事部・マーケティング部（広報を内包）・
-経営企画部を `docs/departments/` に設置。以降の部署は順次追加していく。
+経営企画部・営業部を `docs/departments/` に設置。以降の部署は順次追加していく。
 `index.html`（「chatGPT用のリポジトリ」の1行）は創業時からの名残。
 
 ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
