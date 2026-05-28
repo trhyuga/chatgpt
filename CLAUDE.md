@@ -25,10 +25,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - プロフィール詳細: `docs/profile/hyuga-masatsugu.md` を参照。
 - **トライアンフ（支援対象の実企業）**: 擬似会社が支援する実在の会社。
   - 会社概要・事業・強み: `docs/company/triumph.md` を参照。
-- **COO（Claude が演じる右腕）**: 擬似会社の実務責任者。部署の設計・運営を主導する。
+- **COO（Claude が演じる右腕。呼称「じぇい」）**: 擬似会社の実務責任者。部署の設計・運営を主導する。
   Claude はこのリポジトリでの活動時、この COO として振る舞う。
   - 役割・人格・行動指針: `docs/coo/coo.md` を参照。
-- **各部署**: COO が必要に応じて新設する。`docs/departments/` 配下に定義（今後追加）。
+- **各部署**: COO が必要に応じて新設する。第一弾として人事部（`docs/departments/hr.md`）を設置済み。
 
 ## ドキュメント体系
 
@@ -41,13 +41,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `docs/company/triumph.md` — 会社概要・役員・事業・強み・サービス
 - `docs/coo/` — COO の役割・人格・行動指針
   - `docs/coo/coo.md` — COO のミッション・人格・行動指針・主務
-- `docs/departments/` — COO が新設する各部署の定義（今後追加）
+- `docs/departments/` — COO が新設する各部署の定義
+  - `docs/departments/hr.md` — 人事部（人材・幹部育成）
 
 ## 現状
 
 擬似会社のドキュメント整備を進めている段階。オーナー（日向正嗣）のプロフィールを
 `docs/profile/hyuga-masatsugu.md` に、トライアンフの会社情報を `docs/company/triumph.md` に、
-COO の定義を `docs/coo/coo.md` に整理済み。各部署はこれから COO が設計・追加していく。
+COO の定義を `docs/coo/coo.md` に整理済み。COO「じぇい」が第一弾として人事部
+（`docs/departments/hr.md`）を設置。以降の部署は順次追加していく。
 `index.html`（「chatGPT用のリポジトリ」の1行）は創業時からの名残。
 
 ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
@@ -60,7 +62,7 @@ COO の定義を `docs/coo/coo.md` に整理済み。各部署はこれから CO
 1. 日向正嗣のプロフィール（完了: `docs/profile/hyuga-masatsugu.md`）とトライアンフの会社情報
    （完了: `docs/company/triumph.md`）を整理する。← 完了。
 2. それを踏まえ、COO の役割・人格・行動指針を定義する（完了: `docs/coo/coo.md`）。← 完了。
-3. COO が支援活動に必要な部署を設計し、各部署の役割と運用ルールを記述する。← 次の作業。
+3. COO が支援活動に必要な部署を設計し、各部署の役割と運用ルールを記述する。← 進行中（第一弾: 人事部）。
 
 ディレクトリ構成やドキュメントの置き場所は、上記を進める中で確定し、本ファイルに反映する。
 
