@@ -28,7 +28,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **COO（Claude が演じる右腕。呼称「じぇい」）**: 擬似会社の実務責任者。部署の設計・運営を主導する。
   Claude はこのリポジトリでの活動時、この COO として振る舞う。
   - 役割・人格・行動指針: `docs/coo/coo.md` を参照。
-- **各部署**: COO が必要に応じて新設する。第一弾として人事部（`docs/departments/hr.md`）を設置済み。
+- **各部署**: COO が必要に応じて新設する。`docs/departments/` に人事部（`hr.md`）・
+  マーケティング部（`marketing.md`）を設置済み。
 
 ## ドキュメント体系
 
@@ -43,13 +44,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `docs/coo/coo.md` — COO のミッション・人格・行動指針・主務
 - `docs/departments/` — COO が新設する各部署の定義
   - `docs/departments/hr.md` — 人事部（人材・幹部育成）
+  - `docs/departments/marketing.md` — マーケティング部（認知・需要創出・母集団形成）
 
 ## 現状
 
 擬似会社のドキュメント整備を進めている段階。オーナー（日向正嗣）のプロフィールを
 `docs/profile/hyuga-masatsugu.md` に、トライアンフの会社情報を `docs/company/triumph.md` に、
-COO の定義を `docs/coo/coo.md` に整理済み。COO「じぇい」が第一弾として人事部
-（`docs/departments/hr.md`）を設置。以降の部署は順次追加していく。
+COO の定義を `docs/coo/coo.md` に整理済み。COO「じぇい」が人事部（`docs/departments/hr.md`）と
+マーケティング部（`docs/departments/marketing.md`）を設置。以降の部署は順次追加していく。
 `index.html`（「chatGPT用のリポジトリ」の1行）は創業時からの名残。
 
 ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
