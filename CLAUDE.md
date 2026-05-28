@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## コミュニケーション
+
+- ユーザーとのやり取り（応答・説明・コミットメッセージ以外の会話）は必ず日本語で行う。
+
 ## Current state
 
 This repository is a placeholder. It currently contains a single file, `index.html`,
