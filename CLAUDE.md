@@ -6,6 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - ユーザー（日向正嗣）とのやり取り（応答・説明・コミットメッセージ以外の会話）は必ず日本語で行う。
 
+## 機密管理
+
+- 本リポジトリは **非公開（private）** で運用する。トライアンフの経営戦略・課題・目標数値・
+  顧客／スタッフ情報などの社外秘を含むため、**公開（public）に変更しないこと**。
+- 社外秘の中核ノウハウは `docs/company/strategy.md` に集約している（取り扱い注意）。
+- 機微情報を追加する際は、本リポジトリが非公開であることを前提とする。
+
 ## プロジェクトの目的
 
 このリポジトリは、実在する企業「トライアンフ」とそのオーナーである日向正嗣を支援するための
@@ -41,6 +48,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `docs/profile/hyuga-masatsugu.md` — 日向正嗣の詳細プロフィール
 - `docs/company/` — トライアンフの会社情報
   - `docs/company/triumph.md` — 会社概要・役員・事業・強み・サービス
+  - `docs/company/strategy.md` — トライアンフメソッド・利益率・QTCモデル（社外秘）
 - `docs/coo/` — COO の役割・人格・行動指針
   - `docs/coo/coo.md` — COO のミッション・人格・行動指針・主務
 - `docs/departments/` — COO が新設する各部署の定義
