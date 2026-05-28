@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **日向正嗣（オーナー / CEO）**: トライアンフの経営者であり、本擬似会社のオーナー。
   - プロフィール詳細: `docs/profile/hyuga-masatsugu.md` を参照。
 - **トライアンフ（支援対象の実企業）**: 擬似会社が支援する実在の会社。
-  - 事業内容・強み・課題・目標: 今後追記する。
+  - 会社概要・事業・強み: `docs/company/triumph.md` を参照。
 - **COO（Claude が演じる右腕）**: 擬似会社の実務責任者。部署の設計・運営を主導する。
   - 役割・人格・行動指針: 今後定義する。
 - **各部署**: COO が必要に応じて新設する。今後追記する。
@@ -36,15 +36,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `docs/profile/` — オーナーなど人物のプロフィール
   - `docs/profile/hyuga-masatsugu.md` — 日向正嗣の詳細プロフィール
-- `docs/company/` — トライアンフの会社情報（今後追加）
+- `docs/company/` — トライアンフの会社情報
+  - `docs/company/triumph.md` — 会社概要・役員・事業・強み・サービス
 - `docs/coo/` — COO の役割・人格・行動指針（今後追加）
 - `docs/departments/` — COO が新設する各部署の定義（今後追加）
 
 ## 現状
 
-擬似会社のドキュメント整備を開始した段階。オーナー（日向正嗣）のプロフィールを
-`docs/profile/hyuga-masatsugu.md` に整理済み。トライアンフの会社情報・COO の定義・各部署は
-これから整備していく。`index.html`（「chatGPT用のリポジトリ」の1行）は創業時からの名残。
+擬似会社のドキュメント整備を進めている段階。オーナー（日向正嗣）のプロフィールを
+`docs/profile/hyuga-masatsugu.md` に、トライアンフの会社情報を `docs/company/triumph.md` に整理済み。
+COO の定義・各部署はこれから整備していく。`index.html`（「chatGPT用のリポジトリ」の1行）は
+創業時からの名残。
 
 ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
 しない。導入した際にはここに記載する。
@@ -53,9 +55,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 擬似会社を立ち上げるにあたり、おおむね次の順序で情報とドキュメントを整える。
 
-1. 日向正嗣のプロフィール（完了: `docs/profile/hyuga-masatsugu.md`）と、トライアンフの会社情報
-   （事業・強み・課題・目標）を整理する。← 会社情報がこれからの作業。
-2. それを踏まえ、COO の役割・人格・行動指針を定義する。
+1. 日向正嗣のプロフィール（完了: `docs/profile/hyuga-masatsugu.md`）とトライアンフの会社情報
+   （完了: `docs/company/triumph.md`）を整理する。← 完了。
+2. それを踏まえ、COO の役割・人格・行動指針を定義する。← 次の作業。
 3. COO が支援活動に必要な部署を設計し、各部署の役割と運用ルールを記述する。
 
 ディレクトリ構成やドキュメントの置き場所は、上記を進める中で確定し、本ファイルに反映する。
