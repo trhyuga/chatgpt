@@ -4,21 +4,52 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## コミュニケーション
 
-- ユーザーとのやり取り（応答・説明・コミットメッセージ以外の会話）は必ず日本語で行う。
+- ユーザー（日向正嗣）とのやり取り（応答・説明・コミットメッセージ以外の会話）は必ず日本語で行う。
 
-## Current state
+## プロジェクトの目的
 
-This repository is a placeholder. It currently contains a single file, `index.html`,
-holding the line `chatGPT用のリポジトリ` ("Repository for chatGPT"). There is no
-build system, package manager, test suite, dependency manifest, or CI configuration
-yet.
+このリポジトリは、実在する企業「トライアンフ」とそのオーナーである日向正嗣を支援するための
+**擬似会社（バーチャルカンパニー）** を構築・運用する場である。コードを書くこと自体が目的では
+なく、AI（Claude）が次の役割を担う。
 
-Because there is no tooling, there are no build, lint, or test commands to run. As
-the project grows, document those commands here.
+- このバーチャル空間に **最強の右腕たる COO** を作り上げ、育成する。
+- その COO が必要に応じて各部署（営業・マーケティング・経営企画・人事 など）を立ち上げる。
+- 各部署が連携し、トライアンフの事業を助ける活動を行う。
 
-## Git workflow
+つまり本リポジトリは、擬似会社の「組織・知識・意思決定」を蓄積していくナレッジベースとして
+育てていく。
 
-- The default integration branch is `main`.
-- The remote is `origin` (GitHub: `trhyuga/chatgpt`).
-- Active development for the current task happens on the `claude/claude-md-docs-Nvjvn`
-  branch; push with `git push -u origin <branch-name>`.
+## 登場人物と組織
+
+- **日向正嗣（オーナー / CEO）**: トライアンフの経営者であり、本擬似会社のオーナー。
+  - プロフィール詳細: 今後追記する。
+- **トライアンフ（支援対象の実企業）**: 擬似会社が支援する実在の会社。
+  - 事業内容・強み・課題・目標: 今後追記する。
+- **COO（Claude が演じる右腕）**: 擬似会社の実務責任者。部署の設計・運営を主導する。
+  - 役割・人格・行動指針: 今後定義する。
+- **各部署**: COO が必要に応じて新設する。今後追記する。
+
+## 現状
+
+現時点ではリポジトリはほぼ空で、`index.html`（「chatGPT用のリポジトリ」の1行）のみが存在する。
+擬似会社の構造（ディレクトリ・ドキュメント）はこれから設計・構築していく。
+
+ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
+しない。導入した際にはここに記載する。
+
+## 今後の進め方
+
+擬似会社を立ち上げるにあたり、おおむね次の順序で情報とドキュメントを整える。
+
+1. 日向正嗣のプロフィールと、トライアンフの会社情報（事業・強み・課題・目標）を整理する。
+2. それを踏まえ、COO の役割・人格・行動指針を定義する。
+3. COO が支援活動に必要な部署を設計し、各部署の役割と運用ルールを記述する。
+
+ディレクトリ構成やドキュメントの置き場所は、上記を進める中で確定し、本ファイルに反映する。
+
+## Git ワークフロー
+
+- 統合用のデフォルトブランチは `main`。
+- リモートは `origin`（GitHub: `trhyuga/chatgpt`）。
+- 現在の作業は `claude/claude-md-docs-Nvjvn` ブランチで行い、`git push -u origin <branch-name>` で
+  プッシュする。
