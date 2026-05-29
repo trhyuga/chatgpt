@@ -49,6 +49,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `docs/company/` — トライアンフの会社情報
   - `docs/company/triumph.md` — 会社概要・役員・事業・強み・サービス
   - `docs/company/strategy.md` — トライアンフメソッド・利益率・QTCモデル（社外秘）
+  - `docs/company/president-blog.md` — 社長ブログ「President Office」から整理した日向の経営思想・歴史・価値観
 - `docs/coo/` — COO の役割・人格・行動指針
   - `docs/coo/coo.md` — COO のミッション・人格・行動指針・主務
 - `docs/departments/` — COO が新設する各部署の定義
@@ -63,6 +64,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `docs/profile/hyuga-masatsugu.md` に、トライアンフの会社情報を `docs/company/triumph.md` に、
 COO の定義を `docs/coo/coo.md` に整理済み。COO「じぇい」が人事部・マーケティング部（広報を内包）・
 経営企画部・営業部を `docs/departments/` に設置。以降の部署は順次追加していく。
+オーナーの経営思想を社長ブログから `docs/company/president-blog.md` に整理（検索経由の要点抽出のため、
+要点の正確化は本文ペーストで随時追補する方針）。
 `index.html`（「chatGPT用のリポジトリ」の1行）は創業時からの名残。
 
 ビルドシステム・パッケージ管理・テストは未導入のため、ビルド / lint / テストのコマンドは存在
