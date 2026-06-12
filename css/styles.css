@@ -1,5 +1,5 @@
 /* =========================================================
-   軽作業ディレクトリ — 共通スタイル
+   Asistia（アシスティア） — 共通スタイル
    日本語UI・レスポンシブ・ダークモード対応
    ========================================================= */
 
@@ -120,12 +120,13 @@ a:hover {
 }
 
 .brand {
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--color-text);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.01em;
+  color: var(--color-primary-dark);
   display: flex;
   flex-direction: column;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .brand:hover {
@@ -451,6 +452,45 @@ label .req {
 
 .region-grid a:hover .region-count {
   color: var(--color-primary);
+}
+
+/* ---------- Asistia について / 安心ポイント ---------- */
+.section-about {
+  background: var(--color-surface-2);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.feature {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.feature h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.feature p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-muted);
 }
 
 /* ---------- 企業カード ---------- */

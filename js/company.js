@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 /** 企業詳細を描画する。 */
 function renderDetail(container, c) {
-  document.title = c.name + " | 軽作業ディレクトリ";
+  document.title = c.name + " | Asistia";
 
   // パンくず
   container.appendChild(
@@ -150,7 +150,7 @@ function renderRelated(container, related) {
 function createShareButton(c) {
   const btn = el("button", { class: "btn btn-ghost", type: "button", text: "共有する" });
   btn.addEventListener("click", async () => {
-    const shareData = { title: c.name + " | 軽作業ディレクトリ", url: location.href };
+    const shareData = { title: c.name + " | Asistia", url: location.href };
     try {
       if (navigator.share) {
         await navigator.share(shareData);

@@ -16,7 +16,18 @@
     markActiveNav();
     setupMobileNav();
     setupBackToTop();
+    insertCopyright();
   });
+
+  /** フッターに著作権表示（現在の年）を追加する。 */
+  function insertCopyright() {
+    const footer = document.querySelector(".site-footer .container");
+    if (!footer) return;
+    const small = document.createElement("div");
+    small.style.cssText = "margin-top:12px;font-size:0.82rem;opacity:0.8";
+    small.textContent = "© " + new Date().getFullYear() + " Asistia（アシスティア）";
+    footer.appendChild(small);
+  }
 
   /** 本文へスキップリンクを先頭に挿入し、main に id を付与する。 */
   function insertSkipLink() {
