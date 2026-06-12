@@ -9,6 +9,12 @@
   async function init() {
     const root = document.getElementById("compare-root");
     if (!root) return;
+    // 共有リンク（?ids=a,b,c）があれば比較リストに取り込む
+    const idsParam = getQueryParam("ids");
+    if (idsParam) {
+      const ids = idsParam.split(",").map((s) => s.trim()).filter(Boolean).slice(0, MAX_COMPARE);
+      if (ids.length) setCompareIds(ids);
+    }
     try {
       ALL = await loadCompanies();
     } catch (e) {
@@ -109,9 +115,26 @@
       clearCompare();
       render(root);
     });
+
+    // 共有リンクをコピー
+    const shareUrl =
+      location.origin + location.pathname + "?ids=" + list.map((c) => c.id).join(",");
+    const share = el("button", { class: "btn btn-secondary", type: "button", text: "この比較リンクをコピー" });
+    share.addEventListener("click", () => {
+      const done = () => {
+        share.textContent = "コピーしました";
+        setTimeout(() => (share.textContent = "この比較リンクをコピー"), 1600);
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(shareUrl).then(done, done);
+      else done();
+    });
+
     root.appendChild(
       el("div", { class: "list-toolbar", style: "margin-top:18px" }, [
-        el("a", { class: "btn btn-secondary", href: "companies.html", text: "企業一覧に戻って追加" }),
+        el("div", { class: "detail-actions", style: "margin:0" }, [
+          el("a", { class: "btn btn-secondary", href: "companies.html", text: "企業一覧に戻って追加" }),
+          share
+        ]),
         clear
       ])
     );
