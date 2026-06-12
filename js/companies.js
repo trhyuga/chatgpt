@@ -1,4 +1,4 @@
-/* 企業一覧ページ用スクリプト：検索・地域/作業フィルタと一覧描画。 */
+/* 企業一覧ページ用スクリプト：検索・地域/作業フィルタ・並び替え・一覧描画。 */
 
 let ALL_COMPANIES = [];
 
@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const keywordInput = document.getElementById("f-keyword");
   const areaSelect = document.getElementById("f-area");
   const serviceSelect = document.getElementById("f-service");
+  const sortSelect = document.getElementById("f-sort");
+  const clearBtn = document.getElementById("clear-filters");
 
   try {
     ALL_COMPANIES = await loadCompanies();
@@ -16,13 +18,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   buildAreaOptions(areaSelect);
   buildServiceOptions(serviceSelect, ALL_COMPANIES);
-  applyInitialQuery(keywordInput, areaSelect, serviceSelect);
+  applyInitialQuery(keywordInput, areaSelect, serviceSelect, sortSelect);
 
-  [keywordInput, areaSelect, serviceSelect].forEach((elm) => {
+  [keywordInput, areaSelect, serviceSelect, sortSelect].forEach((elm) => {
     if (!elm) return;
     elm.addEventListener("input", render);
     elm.addEventListener("change", render);
   });
+
+  if (clearBtn) clearBtn.addEventListener("click", clearFilters);
 
   render();
 });
@@ -48,12 +52,13 @@ function buildServiceOptions(select, companies) {
   );
 }
 
-/** URL クエリ（keyword / region / prefecture / service）を初期値に反映する。 */
-function applyInitialQuery(keywordInput, areaSelect, serviceSelect) {
+/** URL クエリ（keyword / region / prefecture / service / sort）を初期値に反映する。 */
+function applyInitialQuery(keywordInput, areaSelect, serviceSelect, sortSelect) {
   const keyword = getQueryParam("keyword");
   const region = getQueryParam("region");
   const prefecture = getQueryParam("prefecture");
   const service = getQueryParam("service");
+  const sort = getQueryParam("sort");
 
   if (keyword && keywordInput) keywordInput.value = keyword;
   if (areaSelect) {
@@ -61,22 +66,32 @@ function applyInitialQuery(keywordInput, areaSelect, serviceSelect) {
     else if (region) areaSelect.value = "region:" + region;
   }
   if (service && serviceSelect) serviceSelect.value = service;
+  if (sort && sortSelect) sortSelect.value = sort;
 }
 
-/** 現在のフィルタ状態を読み取って一覧を再描画する。 */
+/** 現在のフィルタ状態を読み取って一覧を再描画し、URL にも反映する。 */
 function render() {
   const keyword = valueOf("f-keyword");
   const area = valueOf("f-area");
   const service = valueOf("f-service");
+  const sort = valueOf("f-sort") || "updated";
 
   const opts = { keyword, service };
   if (area.startsWith("region:")) opts.region = area.slice("region:".length);
   else if (area.startsWith("pref:")) opts.prefecture = area.slice("pref:".length);
 
-  const results = filterCompanies(ALL_COMPANIES, opts);
+  let results = filterCompanies(ALL_COMPANIES, opts);
+  results = sortCompanies(results, sort);
+
+  syncUrl({ keyword, area, service, sort });
 
   const count = document.getElementById("result-count");
-  if (count) count.textContent = results.length + " 件の企業が見つかりました";
+  if (count) {
+    count.replaceChildren(
+      el("strong", { text: String(results.length) }),
+      document.createTextNode(" 件の企業が見つかりました")
+    );
+  }
 
   const list = document.getElementById("company-list");
   if (!list) return;
@@ -84,12 +99,41 @@ function render() {
 
   if (results.length === 0) {
     list.appendChild(
-      el("p", { class: "empty", text: "条件に一致する企業が見つかりませんでした。" })
+      el("p", { class: "empty", text: "条件に一致する企業が見つかりませんでした。条件を変えてお試しください。" })
     );
     return;
   }
-  const grid = el("div", { class: "card-grid" }, results.map(createCompanyCard));
+  const grid = el(
+    "div",
+    { class: "card-grid" },
+    results.map((c) => createCompanyCard(c, keyword))
+  );
   list.appendChild(grid);
+}
+
+/** 現在のフィルタ状態を URL クエリへ反映する（共有・戻る操作に対応）。 */
+function syncUrl({ keyword, area, service, sort }) {
+  const params = new URLSearchParams();
+  if (keyword) params.set("keyword", keyword);
+  if (area.startsWith("region:")) params.set("region", area.slice("region:".length));
+  else if (area.startsWith("pref:")) params.set("prefecture", area.slice("pref:".length));
+  if (service) params.set("service", service);
+  if (sort && sort !== "updated") params.set("sort", sort);
+
+  const query = params.toString();
+  const url = query ? "?" + query : location.pathname;
+  history.replaceState(null, "", url);
+}
+
+/** すべてのフィルタを初期化する。 */
+function clearFilters() {
+  ["f-keyword", "f-area", "f-service"].forEach((id) => {
+    const elm = document.getElementById(id);
+    if (elm) elm.value = "";
+  });
+  const sort = document.getElementById("f-sort");
+  if (sort) sort.value = "updated";
+  render();
 }
 
 function valueOf(id) {
@@ -99,5 +143,5 @@ function valueOf(id) {
 
 function showError(message) {
   const list = document.getElementById("company-list");
-  if (list) list.appendChild(el("p", { class: "empty", text: message }));
+  if (list) list.replaceChildren(el("p", { class: "empty", text: message }));
 }

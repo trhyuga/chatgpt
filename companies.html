@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>企業一覧 | 軽作業ディレクトリ</title>
     <meta name="description" content="軽作業のスタッフ手配に対応する企業の一覧。キーワード・地域・対応作業で絞り込めます。" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Cpath d='M8 12h16v12H8z' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M12 12V8h8v4' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -39,10 +43,25 @@
             <label for="f-service">対応作業</label>
             <select id="f-service"></select>
           </div>
+          <div>
+            <label for="f-sort">並び替え</label>
+            <select id="f-sort">
+              <option value="updated">新着順</option>
+              <option value="name">会社名順</option>
+            </select>
+          </div>
         </div>
 
-        <p class="result-count" id="result-count"></p>
-        <div id="company-list"></div>
+        <div class="filter-bar">
+          <p class="result-count" id="result-count"></p>
+          <button type="button" class="btn btn-ghost btn-sm" id="clear-filters">
+            条件をクリア
+          </button>
+        </div>
+
+        <div id="company-list">
+          <p class="loading">読み込み中…</p>
+        </div>
       </div>
     </main>
 
@@ -59,6 +78,7 @@
       </div>
     </footer>
 
+    <script src="js/ui.js"></script>
     <script src="js/data.js"></script>
     <script src="js/companies.js"></script>
   </body>

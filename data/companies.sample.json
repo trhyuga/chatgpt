@@ -11,6 +11,7 @@
       "description": "展示会・コンサート等の設営や搬入出を中心に、軽作業スタッフを手配するサンプル企業です。短期・単発の依頼にも対応（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-001",
+      "featured": true,
       "updatedAt": "2026-06-01"
     },
     {
@@ -23,6 +24,7 @@
       "description": "倉庫内のピッキング・梱包など軽作業を請け負うサンプル企業です（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-002",
+      "featured": true,
       "updatedAt": "2026-05-28"
     },
     {
@@ -35,6 +37,7 @@
       "description": "イベント運営・受付・来場者案内などのスタッフを手配するサンプル企業です（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-003",
+      "featured": true,
       "updatedAt": "2026-06-05"
     },
     {
@@ -47,6 +50,7 @@
       "description": "名古屋エリアの展示会・イベントの設営や清掃を行うサンプル企業です（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-004",
+      "featured": false,
       "updatedAt": "2026-05-20"
     },
     {
@@ -59,6 +63,7 @@
       "description": "福岡の物流センターで仕分け・検品などの軽作業を行うサンプル企業です（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-005",
+      "featured": false,
       "updatedAt": "2026-06-10"
     },
     {
@@ -71,7 +76,60 @@
       "description": "札幌エリアのイベント設営・季節作業に対応するサンプル企業です（※ダミー）。",
       "publicContact": "https://example.com/contact",
       "sourceUrl": "https://example.com/sample-006",
+      "featured": false,
       "updatedAt": "2026-04-15"
+    },
+    {
+      "id": "sample-007",
+      "name": "サンプル中国スタッフサービス株式会社",
+      "region": "中国・四国",
+      "prefecture": "広島県",
+      "city": "広島市",
+      "services": ["イベント設営", "搬入出", "受付"],
+      "description": "広島エリアのスポーツ大会・展示会の設営や受付スタッフを手配するサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-007",
+      "featured": false,
+      "updatedAt": "2026-06-08"
+    },
+    {
+      "id": "sample-008",
+      "name": "ダミー埼玉ロジスティクス株式会社",
+      "region": "関東",
+      "prefecture": "埼玉県",
+      "city": "さいたま市",
+      "services": ["倉庫内作業", "ピッキング", "仕分け", "検品"],
+      "description": "首都圏の大型物流センターで仕分け・検品などの軽作業に対応するサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-008",
+      "featured": false,
+      "updatedAt": "2026-06-11"
+    },
+    {
+      "id": "sample-009",
+      "name": "テスト関西イベントワークス合同会社",
+      "region": "近畿",
+      "prefecture": "兵庫県",
+      "city": "神戸市",
+      "services": ["イベント運営", "設営", "会場撤去", "案内"],
+      "description": "神戸・阪神エリアのイベント運営や設営・撤去をサポートするサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-009",
+      "featured": false,
+      "updatedAt": "2026-05-12"
+    },
+    {
+      "id": "sample-010",
+      "name": "サンプル東北軽作業センター株式会社",
+      "region": "北海道・東北",
+      "prefecture": "宮城県",
+      "city": "仙台市",
+      "services": ["倉庫内作業", "梱包", "清掃"],
+      "description": "仙台エリアの倉庫内軽作業や清掃に対応するサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-010",
+      "featured": false,
+      "updatedAt": "2026-06-09"
     }
   ]
 }
