@@ -1,0 +1,391 @@
+/* =========================================================
+   軽作業ディレクトリ — 共通スタイル
+   日本語UI・レスポンシブ対応
+   ========================================================= */
+
+:root {
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-text: #1f2933;
+  --color-muted: #6b7280;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-border: #e2e8f0;
+  --color-accent: #0ea5e9;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --max-width: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+    "Yu Gothic", Meiryo, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- レイアウト ---------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  gap: 16px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brand small {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #fff;
+  padding: 56px 0;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: 1.9rem;
+}
+
+.hero p {
+  margin: 0 0 24px;
+  font-size: 1.05rem;
+  opacity: 0.95;
+}
+
+.hero .search-box {
+  display: flex;
+  gap: 8px;
+  max-width: 560px;
+  flex-wrap: wrap;
+}
+
+.hero .search-box input {
+  flex: 1 1 240px;
+}
+
+/* ---------- フォーム要素 ---------- */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--color-text);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background: #eff6ff;
+}
+
+/* ---------- セクション ---------- */
+.section {
+  padding: 40px 0;
+}
+
+.section h2 {
+  font-size: 1.4rem;
+  margin: 0 0 20px;
+}
+
+/* ---------- 地域グリッド ---------- */
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.region-grid a {
+  display: block;
+  padding: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.region-grid a:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* ---------- 企業カード ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.company-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.company-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.company-card .location {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.company-card .desc {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  background: #eff6ff;
+  color: var(--color-primary-dark);
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+/* ---------- 一覧ページのフィルタ ---------- */
+.filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.result-count {
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+
+.empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* ---------- 詳細ページ ---------- */
+.detail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.detail h1 {
+  margin-top: 0;
+}
+
+.detail dl {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 16px;
+  margin: 20px 0;
+}
+
+.detail dt {
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.detail dd {
+  margin: 0;
+}
+
+.notice {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: #92400e;
+  margin: 16px 0;
+}
+
+.breadcrumb {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  margin: 16px 0;
+}
+
+/* ---------- 本文（ポリシー等） ---------- */
+.prose {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.prose h2 {
+  font-size: 1.2rem;
+  margin-top: 28px;
+}
+
+.prose h2:first-child {
+  margin-top: 0;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: #1f2933;
+  color: #cbd5e1;
+  padding: 28px 0;
+  margin-top: 48px;
+  font-size: 0.9rem;
+}
+
+.site-footer a {
+  color: #93c5fd;
+}
+
+.site-footer .footer-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 640px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .detail dl {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+
+  .detail dt {
+    margin-top: 10px;
+  }
+}

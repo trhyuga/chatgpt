@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>掲載・修正・削除の依頼 | 軽作業ディレクトリ</title>
+    <meta name="description" content="掲載内容の新規掲載・修正・削除の依頼フォームです。" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="index.html">
+          軽作業ディレクトリ
+          <small>軽作業派遣の会社を探す情報サイト</small>
+        </a>
+        <nav class="nav">
+          <a href="companies.html">企業一覧</a>
+          <a href="request.html">掲載・修正・削除の依頼</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <h1>掲載・修正・削除の依頼</h1>
+        <p>
+          掲載内容の <strong>新規掲載・修正・削除</strong> はこちらから依頼できます。<br />
+          公開情報をもとに掲載しているため、貴社のご希望があればいつでも反映・削除します。
+        </p>
+
+        <div class="prose" style="max-width: 640px">
+          <form id="request-form">
+            <div class="field">
+              <label for="type">依頼の種類</label>
+              <select id="type" name="type">
+                <option value="削除">掲載の削除</option>
+                <option value="修正">掲載内容の修正</option>
+                <option value="新規掲載">新規掲載の希望</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="company">会社名</label>
+              <input type="text" id="company" name="company" required />
+            </div>
+
+            <div class="field">
+              <label for="email">連絡先メールアドレス</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="field">
+              <label for="message">ご依頼内容</label>
+              <textarea id="message" name="message" placeholder="修正内容や削除理由などをご記入ください。"></textarea>
+            </div>
+
+            <button class="btn" type="submit">この内容で依頼する</button>
+          </form>
+
+          <p id="request-result" class="notice" style="display: none"></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="index.html">トップ</a>
+          <a href="companies.html">企業一覧</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </div>
+        <div>
+          ※本サイトは公開情報をもとにした情報掲載サイトです。掲載内容の修正・削除はいつでも依頼できます。
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script>
+      // 会社名をクエリから初期入力
+      document.addEventListener("DOMContentLoaded", () => {
+        const company = getQueryParam("company");
+        if (company) document.getElementById("company").value = company;
+
+        const form = document.getElementById("request-form");
+        const result = document.getElementById("request-result");
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          // 現フェーズは送信処理（バックエンド）が未実装のためデモ表示のみ。
+          // Phase 2 でフォーム送信先を実装する。
+          result.style.display = "block";
+          result.textContent =
+            "ご依頼ありがとうございます。※現在は試作版のため送信機能は準備中です。" +
+            "正式公開後、入力内容をもとに速やかに対応します。";
+          form.reset();
+        });
+      });
+    </script>
+  </body>
+</html>

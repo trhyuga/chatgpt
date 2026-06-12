@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>企業一覧 | 軽作業ディレクトリ</title>
+    <meta name="description" content="軽作業のスタッフ手配に対応する企業の一覧。キーワード・地域・対応作業で絞り込めます。" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="index.html">
+          軽作業ディレクトリ
+          <small>軽作業派遣の会社を探す情報サイト</small>
+        </a>
+        <nav class="nav">
+          <a href="companies.html">企業一覧</a>
+          <a href="request.html">掲載・修正・削除の依頼</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <h1>企業一覧</h1>
+
+        <div class="filters">
+          <div>
+            <label for="f-keyword">キーワード</label>
+            <input type="search" id="f-keyword" placeholder="会社名・作業・地域名" />
+          </div>
+          <div>
+            <label for="f-area">地域・都道府県</label>
+            <select id="f-area"></select>
+          </div>
+          <div>
+            <label for="f-service">対応作業</label>
+            <select id="f-service"></select>
+          </div>
+        </div>
+
+        <p class="result-count" id="result-count"></p>
+        <div id="company-list"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="index.html">トップ</a>
+          <a href="request.html">掲載・修正・削除の依頼</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </div>
+        <div>
+          ※本サイトは公開情報をもとにした情報掲載サイトです。掲載内容の修正・削除はいつでも依頼できます。
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/companies.js"></script>
+  </body>
+</html>

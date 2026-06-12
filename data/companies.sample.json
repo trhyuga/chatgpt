@@ -1,0 +1,77 @@
+{
+  "_note": "これはサンプル（ダミー）データです。実在する企業・個人の情報は含みません。Phase 2 で Google スプレッドシートの実データに差し替えます。",
+  "companies": [
+    {
+      "id": "sample-001",
+      "name": "サンプル軽作業サービス株式会社",
+      "region": "関東",
+      "prefecture": "東京都",
+      "city": "新宿区",
+      "services": ["イベント設営", "搬入出", "会場撤去"],
+      "description": "展示会・コンサート等の設営や搬入出を中心に、軽作業スタッフを手配するサンプル企業です。短期・単発の依頼にも対応（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-001",
+      "updatedAt": "2026-06-01"
+    },
+    {
+      "id": "sample-002",
+      "name": "ダミー物流サポート合同会社",
+      "region": "関東",
+      "prefecture": "神奈川県",
+      "city": "横浜市",
+      "services": ["倉庫内作業", "ピッキング", "梱包"],
+      "description": "倉庫内のピッキング・梱包など軽作業を請け負うサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-002",
+      "updatedAt": "2026-05-28"
+    },
+    {
+      "id": "sample-003",
+      "name": "テスト人材サポート株式会社",
+      "region": "近畿",
+      "prefecture": "大阪府",
+      "city": "大阪市",
+      "services": ["イベント運営", "受付", "案内"],
+      "description": "イベント運営・受付・来場者案内などのスタッフを手配するサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-003",
+      "updatedAt": "2026-06-05"
+    },
+    {
+      "id": "sample-004",
+      "name": "サンプル軽作業ネット",
+      "region": "中部",
+      "prefecture": "愛知県",
+      "city": "名古屋市",
+      "services": ["搬入出", "設営", "清掃"],
+      "description": "名古屋エリアの展示会・イベントの設営や清掃を行うサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-004",
+      "updatedAt": "2026-05-20"
+    },
+    {
+      "id": "sample-005",
+      "name": "ダミーワークス株式会社",
+      "region": "九州・沖縄",
+      "prefecture": "福岡県",
+      "city": "福岡市",
+      "services": ["倉庫内作業", "仕分け", "検品"],
+      "description": "福岡の物流センターで仕分け・検品などの軽作業を行うサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-005",
+      "updatedAt": "2026-06-10"
+    },
+    {
+      "id": "sample-006",
+      "name": "テスト北海道スタッフ合同会社",
+      "region": "北海道・東北",
+      "prefecture": "北海道",
+      "city": "札幌市",
+      "services": ["イベント設営", "雪まつり関連作業"],
+      "description": "札幌エリアのイベント設営・季節作業に対応するサンプル企業です（※ダミー）。",
+      "publicContact": "https://example.com/contact",
+      "sourceUrl": "https://example.com/sample-006",
+      "updatedAt": "2026-04-15"
+    }
+  ]
+}

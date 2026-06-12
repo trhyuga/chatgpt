@@ -1,1 +1,82 @@
- chatGPT用のリポジトリ
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>軽作業ディレクトリ | 軽作業派遣の会社を探す</title>
+    <meta
+      name="description"
+      content="イベント設営・搬入出・倉庫内作業など、軽作業のスタッフ手配に対応する企業を地域から探せる情報掲載サイトです。"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="index.html">
+          軽作業ディレクトリ
+          <small>軽作業派遣の会社を探す情報サイト</small>
+        </a>
+        <nav class="nav">
+          <a href="companies.html">企業一覧</a>
+          <a href="request.html">掲載・修正・削除の依頼</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>軽作業のスタッフ手配ができる会社を、地域から探す。</h1>
+        <p>
+          イベント設営・搬入出・倉庫内作業などに対応する企業を掲載しています。<br />
+          掲載・利用は無料の情報サイトです。
+        </p>
+        <form class="search-box" onsubmit="onHomeSearch(event)">
+          <input
+            type="search"
+            id="home-keyword"
+            placeholder="例：イベント設営、横浜市、倉庫内作業"
+            aria-label="キーワード検索"
+          />
+          <button class="btn" type="submit">検索する</button>
+        </form>
+      </div>
+    </section>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <h2>地域から探す</h2>
+          <div class="region-grid" id="region-grid"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>注目の掲載企業</h2>
+          <div id="featured"></div>
+          <p style="margin-top: 16px">
+            <a class="btn btn-secondary" href="companies.html">すべての企業を見る</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="companies.html">企業一覧</a>
+          <a href="request.html">掲載・修正・削除の依頼</a>
+          <a href="policy.html">掲載ポリシー</a>
+        </div>
+        <div>
+          ※本サイトは公開情報をもとにした情報掲載サイトです。掲載内容の修正・削除はいつでも依頼できます。
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>
