@@ -307,9 +307,11 @@
     slots.innerHTML = "";
     if (!ids.length) {
       bar.classList.remove("show");
+      document.body.style.paddingBottom = "";
       return;
     }
     bar.classList.add("show");
+    document.body.style.paddingBottom = "88px"; // 固定バーで最終行が隠れないように
     ids.forEach((id) => {
       const c = findCompany(ALL, id);
       if (!c) return;

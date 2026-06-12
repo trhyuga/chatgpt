@@ -35,8 +35,12 @@
 ファイル構成（Phase 1）:
 
 - `index.html`（トップ）, `companies.html`（企業一覧）, `company.html`（企業詳細）,
-  `request.html`（掲載/削除・修正依頼）, `policy.html`（掲載・プライバシーポリシー）
-- `css/styles.css`, `js/*.js`, `data/companies.sample.json`
+  `compare.html`（最大4社の横並び比較）, `register.html`（無料掲載フォーム）,
+  `edit.html`（掲載内容の編集）,
+  `request.html`（掲載/削除・修正依頼）, `policy.html`（掲載・プライバシーポリシー）, `404.html`
+- `css/styles.css`（デザインシステム）, `js/*.js`, `data/companies.sample.json`
+- `apps-script/Code.gs` ＋ `docs/spreadsheet-setup.md`
+  （掲載フォーム → Apps Script → スプレッドシート連携のテンプレートと手順。鍵はクライアントに置かない）
 
 **データベース方針**:
 

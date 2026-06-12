@@ -24,7 +24,35 @@
     }
     document.title = c.name + " | Asistia";
     setMeta(c);
+    injectJsonLd(c);
     render(root, c, companies);
+  }
+
+  /** 構造化データ（JSON-LD / Organization）を埋め込む。値は JSON.stringify で安全に出力。 */
+  function injectJsonLd(c) {
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: c.name,
+      description: c.description || "",
+      areaServed: c.coverage || (c.areas || []).join("、"),
+      address: {
+        "@type": "PostalAddress",
+        addressRegion: c.prefecture || "",
+        addressLocality: c.city || "",
+        addressCountry: "JP"
+      },
+      url: c.website || undefined,
+      foundingDate: c.founded ? String(c.founded) : undefined
+    };
+    const head =
+      document.head ||
+      (typeof document.getElementsByTagName === "function" && document.getElementsByTagName("head")[0]);
+    if (!head) return;
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    head.appendChild(s);
   }
 
   function setMeta(c) {
