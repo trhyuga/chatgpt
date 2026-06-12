@@ -1,114 +1,120 @@
-/* トップページ用スクリプト：地域グリッドと注目企業を描画する。 */
+/* =========================================================
+   トップページ（index.html）
+   - 統計 / カテゴリ / 地域 / 注目企業 / 人気の作業チップ
+   ========================================================= */
+(function () {
+  document.addEventListener("DOMContentLoaded", init);
 
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const companies = await loadCompanies();
-    renderStats(companies);
-    renderRegions(countByRegion(companies));
-    renderPopularServices(companies);
-    renderFeatured(companies);
-  } catch (err) {
-    renderRegions(countByRegion([]));
-    const target = document.getElementById("featured");
-    if (target) {
-      target.appendChild(el("p", { class: "empty", text: err.message }));
+  async function init() {
+    bindSearch();
+    let companies;
+    try {
+      companies = await loadCompanies();
+    } catch (e) {
+      const f = document.getElementById("featured");
+      if (f) {
+        f.innerHTML = "";
+        f.appendChild(el("div", { class: "empty", text: "データの読み込みに失敗しました。時間をおいて再度お試しください。" }));
+      }
+      return;
     }
+    renderStats(companies);
+    renderCategories(companies);
+    renderRegions(companies);
+    renderFeatured(companies);
+    renderChips(companies);
   }
-});
 
-/** 「数字で見る」掲載状況のサマリーを描画する。 */
-function renderStats(companies) {
-  const target = document.getElementById("stats");
-  if (!target) return;
-  const regionsWithCompanies = Object.values(countByRegion(companies)).filter(
-    (n) => n > 0
-  ).length;
-  const items = [
-    { num: companies.length, label: "掲載企業数" },
-    { num: regionsWithCompanies, label: "対応エリア（地域）" },
-    { num: collectServices(companies).length, label: "対応作業の種類" }
-  ];
-  items.forEach((item) => {
-    target.appendChild(
-      el("div", { class: "stat" }, [
-        el("span", { class: "stat-num", text: String(item.num) }),
-        el("span", { class: "stat-label", text: item.label })
-      ])
-    );
-  });
-}
-
-/** 地域リンク（地域から探す）を、掲載件数つきで描画する。 */
-function renderRegions(counts) {
-  const grid = document.getElementById("region-grid");
-  if (!grid) return;
-  grid.replaceChildren();
-  Object.keys(REGIONS).forEach((region) => {
-    const count = counts[region] || 0;
-    grid.appendChild(
-      el(
-        "a",
-        { href: "companies.html?region=" + encodeURIComponent(region) },
-        [
-          el("span", { class: "region-name", text: region }),
-          el("span", { class: "region-count", text: count + " 社" })
-        ]
-      )
-    );
-  });
-}
-
-/** ヒーロー下に「よく探される作業」チップ（出現頻度の高い作業）を描画する。 */
-function renderPopularServices(companies) {
-  const target = document.getElementById("hero-chips");
-  if (!target) return;
-
-  // 作業ごとの出現回数を数え、多い順に上位を表示
-  const counts = {};
-  companies.forEach((c) =>
-    (c.services || []).forEach((s) => (counts[s] = (counts[s] || 0) + 1))
-  );
-  const top = Object.keys(counts)
-    .sort((a, b) => counts[b] - counts[a])
-    .slice(0, 5);
-
-  top.forEach((service) => {
-    target.appendChild(
-      el("a", {
-        class: "chip",
-        href: "companies.html?service=" + encodeURIComponent(service),
-        text: service
-      })
-    );
-  });
-}
-
-/** 注目の掲載企業（featured 優先、不足分は先頭から補完）を描画する。 */
-function renderFeatured(companies) {
-  const target = document.getElementById("featured");
-  if (!target) return;
-
-  const LIMIT = 3;
-  const featuredFirst = companies
-    .filter((c) => c.featured)
-    .concat(companies.filter((c) => !c.featured));
-  const featured = featuredFirst.slice(0, LIMIT);
-
-  if (featured.length === 0) {
-    target.appendChild(el("p", { class: "empty", text: "掲載企業がまだありません。" }));
-    return;
+  function bindSearch() {
+    const form = document.getElementById("home-search");
+    if (!form) return;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const kw = (document.getElementById("home-keyword").value || "").trim();
+      location.href = "companies.html" + (kw ? "?keyword=" + encodeURIComponent(kw) : "");
+    });
   }
-  const grid = el("div", { class: "card-grid" }, featured.map(createCompanyCard));
-  target.appendChild(grid);
-}
 
-/** トップの検索フォーム送信時に一覧ページへ遷移する。 */
-function onHomeSearch(event) {
-  event.preventDefault();
-  const input = document.getElementById("home-keyword");
-  const keyword = input ? input.value.trim() : "";
-  const url = keyword
-    ? "companies.html?keyword=" + encodeURIComponent(keyword)
-    : "companies.html";
-  window.location.href = url;
-}
+  function renderStats(companies) {
+    const box = document.getElementById("stats");
+    if (!box) return;
+    const prefs = new Set(companies.map((c) => c.prefecture));
+    const sameDay = companies.filter((c) => c.sameDay).length;
+    const items = [
+      { num: companies.length, unit: "社", label: "掲載企業数" },
+      { num: prefs.size, unit: "都道府県", label: "対応エリア" },
+      { num: CATEGORIES.length, unit: "分野", label: "業務カテゴリ" },
+      { num: sameDay, unit: "社", label: "即日対応あり" }
+    ];
+    box.innerHTML = "";
+    items.forEach((it) => {
+      box.appendChild(
+        el("div", { class: "stat" }, [
+          el("div", { class: "stat-num" }, [
+            document.createTextNode(String(it.num)),
+            el("span", { class: "unit", text: it.unit })
+          ]),
+          el("div", { class: "stat-label", text: it.label })
+        ])
+      );
+    });
+  }
+
+  function renderCategories(companies) {
+    const box = document.getElementById("cat-grid");
+    if (!box) return;
+    const counts = countByCategory(companies);
+    box.innerHTML = "";
+    CATEGORIES.forEach((cat) => {
+      const ic = el("div", { class: "cat-ic" }, [svgIcon(cat.icon, 26)]);
+      box.appendChild(
+        el(
+          "a",
+          { class: "cat-card", href: "companies.html?category=" + encodeURIComponent(cat.key) },
+          [
+            ic,
+            el("div", { class: "cat-name", text: cat.label }),
+            el("div", { class: "cat-sub", text: cat.sub }),
+            el("div", { class: "cat-sub", text: (counts[cat.key] || 0) + " 社" })
+          ]
+        )
+      );
+    });
+  }
+
+  function renderRegions(companies) {
+    const box = document.getElementById("region-grid");
+    if (!box) return;
+    const counts = countByRegion(companies);
+    box.innerHTML = "";
+    Object.keys(REGIONS).forEach((region) => {
+      box.appendChild(
+        el("a", { class: "region-card", href: "companies.html?region=" + encodeURIComponent(region) }, [
+          el("span", { text: region }),
+          el("span", { class: "region-count", text: (counts[region] || 0) + "社" })
+        ])
+      );
+    });
+  }
+
+  function renderFeatured(companies) {
+    const box = document.getElementById("featured");
+    if (!box) return;
+    const featured = companies.filter((c) => c.featured).slice(0, 3);
+    const list = featured.length ? featured : companies.slice(0, 3);
+    box.className = "card-grid";
+    box.innerHTML = "";
+    list.forEach((c) => box.appendChild(createCompanyCard(c)));
+  }
+
+  function renderChips(companies) {
+    const box = document.getElementById("hero-chips");
+    if (!box) return;
+    const services = collectServices(companies).slice(0, 6);
+    services.forEach((s) => {
+      box.appendChild(
+        el("a", { class: "chip", href: "companies.html?keyword=" + encodeURIComponent(s), text: s })
+      );
+    });
+  }
+})();

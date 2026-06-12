@@ -1,14 +1,10 @@
 /* =========================================================
-   共通UI（全ページ共通）
-   - 本文へスキップリンクの挿入
-   - 現在ページのナビ強調（aria-current）
-   - モバイル用ハンバーガーメニュー
-   - 「トップへ戻る」ボタン
-   すべて段階的拡張（JS 無効でも素のページとして成立する）。
+   共通 UI（全ページ）
+   - JS 有効フラグ
+   - スキップリンク / 現在地ナビ / モバイルメニュー
+   - トップへ戻る / フッター著作権
    ========================================================= */
 (function () {
-  "use strict";
-
   document.documentElement.classList.add("has-js");
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -19,38 +15,29 @@
     insertCopyright();
   });
 
-  /** フッターに著作権表示（現在の年）を追加する。 */
-  function insertCopyright() {
-    const footer = document.querySelector(".site-footer .container");
-    if (!footer) return;
-    const small = document.createElement("div");
-    small.style.cssText = "margin-top:12px;font-size:0.82rem;opacity:0.8";
-    small.textContent = "© " + new Date().getFullYear() + " Asistia（アシスティア）";
-    footer.appendChild(small);
-  }
-
-  /** 本文へスキップリンクを先頭に挿入し、main に id を付与する。 */
   function insertSkipLink() {
-    const main = document.querySelector("main");
+    if (document.querySelector(".skip-link")) return;
+    const main = document.querySelector("main") || document.querySelector(".container");
     if (main && !main.id) main.id = "main";
-
     const link = document.createElement("a");
     link.className = "skip-link";
-    link.href = "#main";
+    link.href = "#" + (main ? main.id : "main");
     link.textContent = "本文へスキップ";
     document.body.insertBefore(link, document.body.firstChild);
   }
 
-  /** 現在表示中のページに対応するナビリンクを強調する。 */
+  /** 現在ページのナビに aria-current を付与。 */
   function markActiveNav() {
-    const current = location.pathname.split("/").pop() || "index.html";
+    const path = location.pathname.split("/").pop() || "index.html";
     document.querySelectorAll(".nav a").forEach((a) => {
-      const href = (a.getAttribute("href") || "").split("/").pop();
-      if (href && href === current) a.setAttribute("aria-current", "page");
+      const href = (a.getAttribute("href") || "").split("?")[0];
+      if (!href || href.startsWith("http")) return;
+      const isHome = (href === "index.html" || href === "") && (path === "" || path === "index.html");
+      if (href === path || isHome) a.setAttribute("aria-current", "page");
     });
   }
 
-  /** ヘッダーにハンバーガーボタンを挿入し、ナビの開閉を制御する。 */
+  /** モバイル：ハンバーガーメニュー。 */
   function setupMobileNav() {
     const header = document.querySelector(".site-header");
     const nav = header && header.querySelector(".nav");
@@ -58,45 +45,49 @@
 
     const btn = document.createElement("button");
     btn.className = "nav-toggle";
-    btn.type = "button";
     btn.setAttribute("aria-label", "メニューを開閉");
     btn.setAttribute("aria-expanded", "false");
-    btn.textContent = "☰";
+    btn.innerHTML = "&#9776;";
+    nav.parentNode.insertBefore(btn, nav);
 
     btn.addEventListener("click", () => {
       const open = header.classList.toggle("nav-open");
       btn.setAttribute("aria-expanded", String(open));
-      btn.textContent = open ? "✕" : "☰";
+      btn.innerHTML = open ? "&times;" : "&#9776;";
     });
-
-    // ナビ内リンクを押したら閉じる
     nav.addEventListener("click", (e) => {
       if (e.target.closest("a")) {
         header.classList.remove("nav-open");
         btn.setAttribute("aria-expanded", "false");
-        btn.textContent = "☰";
+        btn.innerHTML = "&#9776;";
       }
     });
-
-    nav.parentNode.insertBefore(btn, nav);
   }
 
-  /** スクロール時に表示される「トップへ戻る」ボタンを用意する。 */
+  /** トップへ戻るボタン。 */
   function setupBackToTop() {
     const btn = document.createElement("button");
     btn.className = "back-to-top";
-    btn.type = "button";
     btn.setAttribute("aria-label", "ページ上部へ戻る");
-    btn.textContent = "↑";
+    btn.innerHTML = "&#8593;";
+    document.body.appendChild(btn);
     btn.addEventListener("click", () =>
       window.scrollTo({ top: 0, behavior: "smooth" })
     );
-    document.body.appendChild(btn);
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        btn.classList.toggle("is-visible", window.scrollY > 500);
+        ticking = false;
+      });
+    });
+  }
 
-    const onScroll = () => {
-      btn.classList.toggle("is-visible", window.scrollY > 400);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+  /** フッターに著作権表示（現在年）を追加。 */
+  function insertCopyright() {
+    const slot = document.querySelector(".footer-bottom .copyright");
+    if (slot) slot.textContent = "© " + new Date().getFullYear() + " Asistia";
   }
 })();

@@ -5,23 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ページが見つかりません | Asistia</title>
     <meta name="robots" content="noindex" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Cpath d='M8 12h16v12H8z' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M12 12V8h8v4' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"
-    />
+    <meta name="theme-color" content="#0c1f4a" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%232f6bff'/%3E%3Cpath d='M20 9c-4.4 0-8 3.4-8 7.6 0 5 8 14 8 14s8-9 8-14C28 12.4 24.4 9 20 9z' fill='white'/%3E%3Cpath d='M16.4 16.6l2.6 2.6 5-5' fill='none' stroke='%232f6bff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href="index.html">
-          Asistia
-          <small>軽作業派遣の会社を探す情報サイト</small>
+        <a class="brand" href="index.html" aria-label="Asistia ホーム">
+          <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff" /><stop offset="1" stop-color="#1b46bf" /></linearGradient></defs>
+            <rect x="2" y="2" width="36" height="36" rx="11" fill="url(#bm)" />
+            <path d="M20 9c-4.4 0-8 3.4-8 7.6 0 5 8 14 8 14s8-9 8-14C28 12.4 24.4 9 20 9z" fill="#fff" opacity="0.96" />
+            <path d="M16.3 16.7l2.7 2.7 5-5" fill="none" stroke="#2f6bff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="brand-text"><span class="brand-name">Asistia</span><span class="brand-tag">軽作業の人材を地域から探す</span></span>
         </a>
-        <nav class="nav">
-          <a href="companies.html">企業一覧</a>
-          <a href="request.html">掲載・修正・削除の依頼</a>
+        <nav class="nav" aria-label="メインナビ">
+          <a href="companies.html">企業を探す</a>
+          <a href="compare.html">比較する</a>
           <a href="policy.html">掲載ポリシー</a>
+          <a class="btn btn-accent btn-sm nav-cta" href="register.html">無料で掲載する</a>
         </nav>
       </div>
     </header>
@@ -34,9 +38,9 @@
             お探しのページは移動または削除された可能性があります。<br />
             下のリンクからお探しください。
           </p>
-          <p style="margin-top: 20px">
+          <p class="detail-actions" style="justify-content: center; margin-top: 20px">
             <a class="btn" href="index.html">トップへ戻る</a>
-            <a class="btn btn-secondary" href="companies.html">企業一覧を見る</a>
+            <a class="btn btn-secondary" href="companies.html">企業を探す</a>
           </p>
         </div>
       </div>
@@ -44,13 +48,9 @@
 
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-links">
-          <a href="index.html">トップ</a>
-          <a href="companies.html">企業一覧</a>
-          <a href="policy.html">掲載ポリシー</a>
-        </div>
-        <div>
-          ※本サイトは公開情報をもとにした情報掲載サイトです。掲載内容の修正・削除はいつでも依頼できます。
+        <div class="footer-bottom" style="border: none; padding-top: 0">
+          <span class="copyright">© Asistia</span>
+          <span>本サイトは公開情報をもとにした情報掲載サイトです（個人情報は扱いません）。</span>
         </div>
       </div>
     </footer>

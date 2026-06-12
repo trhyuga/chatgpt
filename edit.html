@@ -3,11 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>企業を探す | Asistia</title>
-    <meta name="description" content="軽作業のスタッフ手配に対応する企業を、地域・業務カテゴリ・雇用形態・即日／単発対応などで絞り込み、比較しながら探せます。" />
-    <meta property="og:title" content="企業を探す | Asistia" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
+    <title>掲載内容の編集 | Asistia</title>
+    <meta name="description" content="掲載済みの企業情報を編集し、更新を申請できます。" />
+    <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0c1f4a" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%232f6bff'/%3E%3Cpath d='M20 9c-4.4 0-8 3.4-8 7.6 0 5 8 14 8 14s8-9 8-14C28 12.4 24.4 9 20 9z' fill='white'/%3E%3Cpath d='M16.4 16.6l2.6 2.6 5-5' fill='none' stroke='%232f6bff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -34,35 +32,22 @@
     </header>
 
     <main>
-      <div class="container">
+      <div class="container narrow">
         <nav class="breadcrumb" aria-label="パンくず">
-          <a href="index.html">ホーム</a><span class="sep">›</span><span>企業を探す</span>
+          <a href="index.html">ホーム</a><span class="sep">›</span><a href="companies.html">企業を探す</a><span class="sep">›</span><span>編集</span>
         </nav>
         <div class="section-head">
-          <h1 style="margin: 0 0 6px; font-size: 1.7rem">企業を探す</h1>
-          <p>条件で絞り込み、気になる企業を比較しながら検討できます。</p>
+          <span class="eyebrow">EDIT</span>
+          <h1 id="form-title" style="margin: 0 0 6px; font-size: 1.7rem">掲載内容の編集</h1>
+          <p>内容を修正して「更新を申請する」を押してください。担当者が確認のうえ反映します。</p>
         </div>
 
-        <div class="list-layout">
-          <aside class="filter-panel" id="filter-panel"></aside>
-
-          <div class="list-main">
-            <div class="list-toolbar">
-              <p class="result-count" id="result-count"></p>
-              <div class="toolbar-right">
-                <button class="btn btn-secondary btn-sm filter-mobile-toggle" id="filter-mobile-toggle" type="button">絞り込み</button>
-                <label for="sort-select" class="nowrap" style="font-size: 0.85rem; color: var(--muted)">並び替え</label>
-                <select id="sort-select" aria-label="並び替え">
-                  <option value="updated">更新が新しい順</option>
-                  <option value="name">会社名順</option>
-                  <option value="founded">設立が古い順</option>
-                </select>
-              </div>
-            </div>
-            <div class="active-filters" id="active-filters"></div>
-            <div id="results"><div class="loading"><div class="spinner"></div>読み込み中…</div></div>
-          </div>
+        <div class="notice notice-warn">
+          編集できるのは<strong>公開情報のみ</strong>です。個人情報は入力しないでください。
         </div>
+
+        <div id="form-result"></div>
+        <form id="company-form" novalidate></form>
       </div>
     </main>
 
@@ -95,6 +80,6 @@
 
     <script src="js/ui.js"></script>
     <script src="js/data.js"></script>
-    <script src="js/companies.js"></script>
+    <script src="js/register.js"></script>
   </body>
 </html>
