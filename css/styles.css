@@ -335,6 +335,51 @@ p {
 .nav .nav-cta {
   margin-left: 8px;
 }
+.sample-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 44px 8px 16px;
+  position: relative;
+  background: #fff7ed;
+  color: #9a3412;
+  border-bottom: 1px solid #fed7aa;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: center;
+}
+.sample-bar-close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: #9a3412;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--r-xs);
+}
+.sample-bar-close:hover {
+  background: #ffedd5;
+}
+@media (prefers-color-scheme: dark) {
+  .sample-bar {
+    background: #3a2410;
+    color: #fdba74;
+    border-bottom-color: #5a3a1a;
+  }
+  .sample-bar-close {
+    color: #fdba74;
+  }
+  .sample-bar-close:hover {
+    background: #4a2f15;
+  }
+}
 .nav-count {
   display: inline-flex;
   align-items: center;

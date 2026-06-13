@@ -9,12 +9,40 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     insertSkipLink();
+    insertSampleNotice();
     markActiveNav();
     setupMobileNav();
     setupBackToTop();
     insertCopyright();
     updateNavCounts();
   });
+
+  /** サンプルデータ告知バー（実訪問者の誤認防止・閉じると記憶）。 */
+  function insertSampleNotice() {
+    const KEY = "asistia_sample_notice_dismissed";
+    try {
+      if (localStorage.getItem(KEY) === "1") return;
+    } catch (e) {}
+    const bar = document.createElement("div");
+    bar.className = "sample-bar";
+    const msg = document.createElement("span");
+    msg.textContent =
+      "ご注意：掲載中の企業情報は現在、表示確認用のサンプル（ダミー）です。実在企業の掲載は順次対応します。";
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "sample-bar-close";
+    close.setAttribute("aria-label", "この告知を閉じる");
+    close.innerHTML = "&times;";
+    close.addEventListener("click", () => {
+      bar.remove();
+      try {
+        localStorage.setItem(KEY, "1");
+      } catch (e) {}
+    });
+    bar.appendChild(msg);
+    bar.appendChild(close);
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
 
   // 保存・比較の件数が変わったらナビのバッジを更新
   document.addEventListener("fav:change", updateNavCounts);
