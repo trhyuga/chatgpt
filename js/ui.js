@@ -13,7 +13,37 @@
     setupMobileNav();
     setupBackToTop();
     insertCopyright();
+    updateNavCounts();
   });
+
+  // 保存・比較の件数が変わったらナビのバッジを更新
+  document.addEventListener("fav:change", updateNavCounts);
+  document.addEventListener("compare:change", updateNavCounts);
+
+  /** ナビの「気になる」「比較する」に件数バッジを表示。 */
+  function updateNavCounts() {
+    const counters = {
+      "saved.html": typeof getFavIds === "function" ? getFavIds : null,
+      "compare.html": typeof getCompareIds === "function" ? getCompareIds : null
+    };
+    document.querySelectorAll(".nav a").forEach((a) => {
+      const href = (a.getAttribute("href") || "").split("?")[0];
+      const fn = counters[href];
+      if (!fn) return;
+      const n = fn().length;
+      let badge = a.querySelector(".nav-count");
+      if (n > 0) {
+        if (!badge) {
+          badge = document.createElement("span");
+          badge.className = "nav-count";
+          a.appendChild(badge);
+        }
+        badge.textContent = String(n);
+      } else if (badge) {
+        badge.remove();
+      }
+    });
+  }
 
   function insertSkipLink() {
     if (document.querySelector(".skip-link")) return;
