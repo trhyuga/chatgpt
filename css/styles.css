@@ -1754,6 +1754,10 @@ mark {
   .section {
     padding: 40px 0;
   }
+  .hero .container {
+    padding-top: 34px;
+    padding-bottom: 42px;
+  }
   .cta-band {
     padding: 28px 22px;
     text-align: center;
@@ -1774,6 +1778,13 @@ mark {
 @media (max-width: 460px) {
   .container {
     padding: 0 15px;
+  }
+  /* 検索を縦並びにし、ボタンを全幅で押しやすく */
+  .hero-search {
+    flex-direction: column;
+  }
+  .hero-search .btn {
+    width: 100%;
   }
   .stats {
     grid-template-columns: 1fr 1fr;
