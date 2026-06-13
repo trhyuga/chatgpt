@@ -144,10 +144,30 @@ function sortCompanies(companies, order) {
   return list;
 }
 
-/** 同地域の他社を最大 limit 件返す。 */
+/**
+ * 関連企業を返す。同じ都道府県・地域・業務カテゴリの一致度でスコアリングし、
+ * 高い順に最大 limit 件返す（同地域や同業種のレコメンド用）。
+ */
 function relatedCompanies(companies, current, limit) {
-  const same = companies.filter((c) => c.id !== current.id && c.region === current.region);
-  return same.slice(0, limit || 3);
+  const lim = limit || 3;
+  const curCats = new Set(current.categories || []);
+  const scored = companies
+    .filter((c) => c.id !== current.id)
+    .map((c) => {
+      let score = 0;
+      if (c.prefecture && c.prefecture === current.prefecture) score += 3;
+      else if (c.region && c.region === current.region) score += 2;
+      const shared = (c.categories || []).filter((k) => curCats.has(k)).length;
+      score += shared * 3;
+      return { c, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        String(b.c.updatedAt || "").localeCompare(String(a.c.updatedAt || ""))
+    );
+  return scored.slice(0, lim).map((x) => x.c);
 }
 
 /** Google マップ検索 URL。 */
@@ -192,7 +212,8 @@ const ICONS = {
   building: '<path d="M3 21V3h12v18H3zm14 0V8h4v13h-4zM6 6v2h2V6H6zm4 0v2h2V6h-2zM6 10v2h2v-2H6zm4 0v2h2v-2h-2zM6 14v2h2v-2H6zm4 0v2h2v-2h-2zm-4 4v3h6v-3H6z"/>',
   edit: '<path d="M3 17.2V21h3.8L18 9.8l-3.8-3.8L3 17.2zM20.7 7a1 1 0 0 0 0-1.4l-2.3-2.3a1 1 0 0 0-1.4 0l-1.8 1.8L18.9 9 20.7 7z"/>',
   doc: '<path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13V3.5zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/>',
-  empty: '<path d="M4 7h16v13H4V7zm2 2v9h12V9H6zm1-5h10l2 3H5l2-3z"/>'
+  empty: '<path d="M4 7h16v13H4V7zm2 2v9h12V9H6zm1-5h10l2 3H5l2-3z"/>',
+  heart: '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>'
 };
 
 /** 24x24 ベースの SVG アイコン要素を返す。 */
@@ -305,9 +326,29 @@ function createCompanyCard(c, opts = {}) {
     el("span", { class: "feat-pill", text: "最低" + (c.minWorkers || 1) + "名〜" })
   ]);
 
-  // フッタ：更新日＋比較チェック
+  // フッタ：更新日＋アクション（気になる保存／比較チェック）
   const updated = el("span", { class: "cc-updated", text: c.updatedAt ? "更新 " + c.updatedAt : "" });
-  const foot = el("div", { class: "cc-foot" }, [updated]);
+  const actions = el("div", { class: "cc-actions" });
+
+  // 気になる（お気に入り）保存ボタン
+  const favBtn = el("button", {
+    class: "cc-fav" + (isFav(c.id) ? " on" : ""),
+    type: "button",
+    "aria-label": "気になるに保存",
+    "aria-pressed": String(isFav(c.id)),
+    title: "気になるに保存"
+  });
+  favBtn.appendChild(svgIcon("heart", 18));
+  favBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const on = toggleFav(c.id);
+    favBtn.classList.toggle("on", on);
+    favBtn.setAttribute("aria-pressed", String(on));
+    document.dispatchEvent(new CustomEvent("fav:change"));
+  });
+  actions.appendChild(favBtn);
+
+  const foot = el("div", { class: "cc-foot" }, [updated, actions]);
   if (opts.compare) {
     const cb = el("input", { type: "checkbox", "aria-label": "比較に追加" });
     cb.checked = getCompareIds().includes(c.id);
@@ -318,7 +359,7 @@ function createCompanyCard(c, opts = {}) {
       if (cb.checked && !getCompareIds().includes(c.id)) cb.checked = false; // 上限超過時
     });
     const label = el("label", { class: "cc-compare" }, [cb, el("span", { text: "比較" })]);
-    foot.appendChild(label);
+    actions.appendChild(label);
   }
 
   return el("article", { class: "company-card" }, [top, desc, tags, feats, foot]);
@@ -359,4 +400,44 @@ function removeCompare(id) {
 
 function clearCompare() {
   setCompareIds([]);
+}
+
+/* ---------- 気になる（お気に入り） localStorage ---------- */
+
+const FAV_KEY = "asistia_fav_ids";
+
+function getFavIds() {
+  try {
+    const raw = localStorage.getItem(FAV_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function setFavIds(ids) {
+  try {
+    localStorage.setItem(FAV_KEY, JSON.stringify(ids));
+  } catch (e) {
+    /* localStorage 無効環境では無視 */
+  }
+}
+
+function isFav(id) {
+  return getFavIds().includes(id);
+}
+
+/** お気に入りを切り替え、保存後の状態（true=保存中）を返す。 */
+function toggleFav(id) {
+  const ids = getFavIds();
+  const i = ids.indexOf(id);
+  if (i >= 0) ids.splice(i, 1);
+  else ids.unshift(id);
+  setFavIds(ids);
+  return ids.includes(id);
+}
+
+function removeFav(id) {
+  setFavIds(getFavIds().filter((x) => x !== id));
 }

@@ -137,13 +137,13 @@
 
     root.appendChild(el("div", { class: "detail-grid" }, [main, side]));
 
-    // 関連企業
+    // 関連企業（同じ地域・業務カテゴリ）
     const related = relatedCompanies(companies, c, 3);
     if (related.length) {
-      const grid = el("div", { class: "card-grid" }, related.map((r) => createCompanyCard(r)));
+      const grid = el("div", { class: "card-grid" }, related.map((r) => createCompanyCard(r, { compare: true })));
       root.appendChild(
         el("section", { class: "section tight" }, [
-          el("div", { class: "section-head" }, [el("h2", { text: "同じ地域の他の企業" })]),
+          el("div", { class: "section-head" }, [el("h2", { text: "関連する企業（同じ地域・業務）" })]),
           grid
         ])
       );
@@ -198,6 +198,21 @@
     });
     refresh();
     actions.appendChild(cmpBtn);
+
+    // 気になる（お気に入り）保存
+    const favBtn = el("button", { class: "btn btn-ghost btn-block", type: "button" });
+    const refreshFav = () => {
+      const on = isFav(c.id);
+      favBtn.textContent = on ? "♥ 気になるに保存済み" : "♡ 気になるに保存";
+      favBtn.classList.toggle("fav-on", on);
+    };
+    favBtn.addEventListener("click", () => {
+      toggleFav(c.id);
+      refreshFav();
+      document.dispatchEvent(new CustomEvent("fav:change"));
+    });
+    refreshFav();
+    actions.appendChild(favBtn);
 
     return el("section", { class: "panel" }, [
       el("h2", { text: "この企業について" }),

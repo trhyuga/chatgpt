@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>企業を探す | Asistia</title>
-    <meta name="description" content="軽作業のスタッフ手配に対応する企業を、地域・業務カテゴリ・雇用形態・即日／単発対応などで絞り込み、比較しながら探せます。" />
-    <meta property="og:title" content="企業を探す | Asistia" />
+    <title>気になる企業 | Asistia</title>
+    <meta name="description" content="気になる軽作業の人材サービス企業を保存して、あとからまとめて確認・比較できます。保存内容はこの端末のブラウザに記録されます。" />
+    <meta property="og:title" content="気になる企業 | Asistia" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="theme-color" content="#0c1f4a" />
@@ -25,8 +25,8 @@
           <span class="brand-text"><span class="brand-name">Asistia</span><span class="brand-tag">軽作業の人材を地域から探す</span></span>
         </a>
         <nav class="nav" aria-label="メインナビ">
-          <a href="companies.html" aria-current="page">企業を探す</a>
-          <a href="saved.html">気になる</a>
+          <a href="companies.html">企業を探す</a>
+          <a href="saved.html" aria-current="page">気になる</a>
           <a href="compare.html">比較する</a>
           <a href="policy.html">掲載ポリシー</a>
           <a class="btn btn-accent btn-sm nav-cta" href="register.html">無料で掲載する</a>
@@ -37,32 +37,14 @@
     <main>
       <div class="container">
         <nav class="breadcrumb" aria-label="パンくず">
-          <a href="index.html">ホーム</a><span class="sep">›</span><span>企業を探す</span>
+          <a href="index.html">ホーム</a><span class="sep">›</span><span>気になる企業</span>
         </nav>
         <div class="section-head">
-          <h1 style="margin: 0 0 6px; font-size: 1.7rem">企業を探す</h1>
-          <p>条件で絞り込み、気になる企業を比較しながら検討できます。</p>
+          <h1 style="margin: 0 0 6px; font-size: 1.7rem">気になる企業</h1>
+          <p id="saved-count">保存した企業を、あとからまとめて確認・比較できます。</p>
         </div>
-
-        <div class="list-layout">
-          <aside class="filter-panel" id="filter-panel"></aside>
-
-          <div class="list-main">
-            <div class="list-toolbar">
-              <p class="result-count" id="result-count"></p>
-              <div class="toolbar-right">
-                <button class="btn btn-secondary btn-sm filter-mobile-toggle" id="filter-mobile-toggle" type="button">絞り込み</button>
-                <label for="sort-select" class="nowrap" style="font-size: 0.85rem; color: var(--muted)">並び替え</label>
-                <select id="sort-select" aria-label="並び替え">
-                  <option value="updated">更新が新しい順</option>
-                  <option value="name">会社名順</option>
-                  <option value="founded">設立が古い順</option>
-                </select>
-              </div>
-            </div>
-            <div class="active-filters" id="active-filters"></div>
-            <div id="results"><div class="loading"><div class="spinner"></div>読み込み中…</div></div>
-          </div>
+        <div id="saved-root">
+          <div class="loading"><div class="spinner"></div>読み込み中…</div>
         </div>
       </div>
     </main>
@@ -77,6 +59,7 @@
           <div class="footer-col">
             <h4>探す</h4>
             <a href="companies.html">企業を探す</a>
+            <a href="saved.html">気になる企業</a>
             <a href="compare.html">企業を比較する</a>
             <a href="index.html#regions">地域から探す</a>
           </div>
@@ -96,6 +79,6 @@
 
     <script src="js/ui.js"></script>
     <script src="js/data.js"></script>
-    <script src="js/companies.js"></script>
+    <script src="js/saved.js"></script>
   </body>
 </html>

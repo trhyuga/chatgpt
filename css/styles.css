@@ -1087,6 +1087,38 @@ label .opt {
   height: 16px;
   accent-color: var(--brand);
 }
+.cc-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cc-fav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--line-strong);
+  cursor: pointer;
+  border-radius: var(--r-xs);
+  transition: color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+}
+.cc-fav:hover {
+  background: var(--surface-2);
+  color: #e0457a;
+}
+.cc-fav:active {
+  transform: scale(0.9);
+}
+.cc-fav.on {
+  color: #e0457a;
+}
+.btn.fav-on {
+  color: #e0457a;
+  border-color: color-mix(in srgb, #e0457a 35%, var(--line-strong));
+}
 .card-badges {
   position: absolute;
   top: 14px;
