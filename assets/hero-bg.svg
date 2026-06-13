@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" fill="none" role="img" aria-label="軽作業・イベント・物流のイメージ">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0c1f4a" stop-opacity="0"/>
+      <stop offset="0.42" stop-color="#0c1f4a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0c1f4a" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ぼかし円（奥行き） -->
+  <g fill="#ffffff">
+    <circle cx="1180" cy="120" r="150" opacity="0.05"/>
+    <circle cx="980" cy="430" r="120" opacity="0.04"/>
+    <circle cx="1330" cy="470" r="90" opacity="0.05"/>
+  </g>
+  <g fill="#ff8a1e">
+    <circle cx="1290" cy="150" r="60" opacity="0.10"/>
+    <circle cx="860" cy="250" r="22" opacity="0.18"/>
+  </g>
+
+  <!-- イベント用トラス（照明バー） -->
+  <g stroke="#ffffff" stroke-opacity="0.30" stroke-width="3">
+    <line x1="820" y1="96" x2="1360" y2="96"/>
+    <line x1="820" y1="112" x2="1360" y2="112"/>
+    <line x1="840" y1="96" x2="860" y2="112"/>
+    <line x1="900" y1="112" x2="920" y2="96"/>
+    <line x1="980" y1="96" x2="1000" y2="112"/>
+    <line x1="1060" y1="112" x2="1080" y2="96"/>
+    <line x1="1140" y1="96" x2="1160" y2="112"/>
+    <line x1="1220" y1="112" x2="1240" y2="96"/>
+    <line x1="1300" y1="96" x2="1320" y2="112"/>
+  </g>
+  <!-- 吊り下げライト -->
+  <g>
+    <g stroke="#ffffff" stroke-opacity="0.22" stroke-width="2">
+      <line x1="900" y1="112" x2="900" y2="150"/>
+      <line x1="1080" y1="112" x2="1080" y2="166"/>
+      <line x1="1260" y1="112" x2="1260" y2="150"/>
+    </g>
+    <circle cx="900" cy="158" r="9" fill="#ffd58a" opacity="0.85"/>
+    <circle cx="1080" cy="174" r="9" fill="#ff8a1e" opacity="0.9"/>
+    <circle cx="1260" cy="158" r="9" fill="#ffd58a" opacity="0.85"/>
+  </g>
+
+  <!-- 検索（虫めがね） -->
+  <g stroke="#ffffff" stroke-opacity="0.40" stroke-width="9" stroke-linecap="round">
+    <circle cx="1150" cy="300" r="62" fill="url(#glass)"/>
+    <line x1="1196" y1="346" x2="1244" y2="394"/>
+  </g>
+  <path d="M1118 300l22 22 44-44" fill="none" stroke="#ff8a1e" stroke-opacity="0.9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 位置ピン -->
+  <g>
+    <path d="M900 250c-21 0-38 16-38 37 0 26 38 64 38 64s38-38 38-64c0-21-17-37-38-37z" fill="#ffffff" fill-opacity="0.16" stroke="#ffffff" stroke-opacity="0.4" stroke-width="3"/>
+    <circle cx="900" cy="288" r="13" fill="#ff8a1e" fill-opacity="0.9"/>
+    <path d="M1330 330c-16 0-29 12-29 28 0 20 29 49 29 49s29-29 29-49c0-16-13-28-29-28z" fill="#ffffff" fill-opacity="0.14" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
+    <circle cx="1330" cy="358" r="10" fill="#ffd58a" fill-opacity="0.9"/>
+  </g>
+  <!-- つなぐ点線（ルート） -->
+  <path d="M900 360 C 980 470, 1240 470, 1330 408" fill="none" stroke="#ffffff" stroke-opacity="0.30" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+
+  <!-- 積み重ねたダンボール（物流） -->
+  <g opacity="0.92">
+    <!-- 箱1 -->
+    <g>
+      <polygon points="980,470 1040,438 1100,470 1040,502" fill="#ffffff" fill-opacity="0.20"/>
+      <polygon points="980,470 1040,502 1040,560 980,528" fill="#ffffff" fill-opacity="0.12"/>
+      <polygon points="1100,470 1040,502 1040,560 1100,528" fill="#ffffff" fill-opacity="0.08"/>
+      <line x1="1040" y1="502" x2="1040" y2="560" stroke="#ff8a1e" stroke-opacity="0.5" stroke-width="2"/>
+    </g>
+    <!-- 箱2 -->
+    <g>
+      <polygon points="1100,440 1160,408 1220,440 1160,472" fill="#ffffff" fill-opacity="0.22"/>
+      <polygon points="1100,440 1160,472 1160,530 1100,498" fill="#ffffff" fill-opacity="0.13"/>
+      <polygon points="1220,440 1160,472 1160,530 1220,498" fill="#ffffff" fill-opacity="0.08"/>
+      <line x1="1160" y1="472" x2="1160" y2="530" stroke="#ff8a1e" stroke-opacity="0.5" stroke-width="2"/>
+    </g>
+    <!-- 箱3（上） -->
+    <g>
+      <polygon points="1040,398 1100,366 1160,398 1100,430" fill="#ffffff" fill-opacity="0.26"/>
+      <polygon points="1040,398 1100,430 1100,488 1040,456" fill="#ffffff" fill-opacity="0.15"/>
+      <polygon points="1160,398 1100,430 1100,488 1160,456" fill="#ffffff" fill-opacity="0.09"/>
+      <line x1="1100" y1="430" x2="1100" y2="488" stroke="#ff8a1e" stroke-opacity="0.6" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

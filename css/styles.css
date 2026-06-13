@@ -136,11 +136,14 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--text);
-  background:
+  background-color: var(--bg);
+  background-image:
+    url("../assets/bg-texture.svg"),
     radial-gradient(1200px 600px at 80% -10%, var(--bg-grad-1), transparent 60%),
-    radial-gradient(900px 500px at -10% 0%, var(--bg-grad-2), transparent 55%),
-    var(--bg);
-  background-attachment: fixed;
+    radial-gradient(900px 500px at -10% 0%, var(--bg-grad-2), transparent 55%);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: 48px 48px, auto, auto;
+  background-attachment: scroll, fixed, fixed;
   line-height: 1.8;
   font-size: 16px;
   letter-spacing: 0.01em;
@@ -245,7 +248,9 @@ p {
   max-width: 60ch;
 }
 .section-alt {
-  background: var(--surface-2);
+  background-color: var(--surface-2);
+  background-image: url("../assets/bg-texture.svg");
+  background-size: 48px 48px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -614,6 +619,16 @@ label .opt {
   background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1.4px);
   background-size: 26px 26px;
   opacity: 0.4;
+  pointer-events: none;
+}
+/* 主役のイメージ（軽作業・イベント・物流のシーン） */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../assets/hero-bg.svg") no-repeat right center;
+  background-size: cover;
+  opacity: 0.75;
   pointer-events: none;
 }
 .hero .container {
@@ -1688,6 +1703,12 @@ mark {
   }
   .hero-art {
     display: none;
+  }
+  /* 主役シーンは背景として右に寄せ、文字の視認性を確保 */
+  .hero::before {
+    background-position: right -40px center;
+    background-size: auto 116%;
+    opacity: 0.4;
   }
   .detail-grid {
     grid-template-columns: 1fr;
