@@ -34,6 +34,11 @@
 
     form.addEventListener("submit", onSubmit);
 
+    // リアルタイム検証：修正したらエラー表示を即座に解除する
+    const live = (e) => liveClear(form, e.target);
+    form.addEventListener("input", live);
+    form.addEventListener("change", live);
+
     const saveBtn = document.getElementById("save-draft");
     if (saveBtn) {
       saveBtn.addEventListener("click", () => {
@@ -282,7 +287,120 @@
       errors[0].el && errors[0].el.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    submit(data, form);
+    showConfirm(data, form);
+  }
+
+  /* ---------- リアルタイム検証（修正したらエラー解除） ---------- */
+  function liveClear(form, target) {
+    if (!target) return;
+    if (target.id === "f-agree") {
+      if (target.checked) {
+        const e = document.getElementById("err-agree");
+        if (e) e.classList.add("hidden");
+      }
+      return;
+    }
+    let key = null;
+    if (target.id && target.id.indexOf("f-") === 0) key = target.id.slice(2);
+    else if (target.name) key = target.name; // グループ（categories 等）
+    if (!key) return;
+
+    let ok = true;
+    if (key === "categories") {
+      ok = form.querySelectorAll("[name='categories']:checked").length > 0;
+    } else if (key === "sourceUrl") {
+      ok = /^https?:\/\//.test((valueOf(form, "sourceUrl") || ""));
+    } else if (key === "website") {
+      const v = valueOf(form, "website");
+      ok = !v || /^https?:\/\//.test(v);
+    } else {
+      const input = form.querySelector("#f-" + key);
+      if (input && "value" in input) ok = !!String(input.value).trim();
+    }
+    if (!ok) return;
+    const err = document.getElementById("err-" + key);
+    if (err) err.classList.add("hidden");
+    const field = form.querySelector("#f-" + key);
+    if (field) field.classList.remove("input-error");
+  }
+  function valueOf(form, name) {
+    const e = form.querySelector("#f-" + name);
+    return e ? String(e.value).trim() : "";
+  }
+
+  /* ---------- 確認画面（入力→確認→完了） ---------- */
+  function showConfirm(data, form) {
+    const result = document.getElementById("form-result");
+    if (!result) {
+      submit(data, form);
+      return;
+    }
+    result.innerHTML = "";
+
+    const back = el("button", { class: "btn btn-ghost", type: "button", text: "内容を修正する" });
+    back.addEventListener("click", () => {
+      result.innerHTML = "";
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    const send = el("button", {
+      class: "btn btn-accent btn-lg",
+      type: "button",
+      text: editing ? "この内容で更新を申請する" : "この内容で掲載を申請する"
+    });
+    send.addEventListener("click", () => {
+      send.disabled = true;
+      submit(data, form);
+    });
+
+    result.appendChild(
+      el("section", { class: "panel" }, [
+        el("h2", { text: "この内容で申請します（確認）", style: "border:none;padding:0" }),
+        el("p", { class: "hint", text: "掲載前の確認です。内容に問題がなければ申請してください。修正する場合は「内容を修正する」を押してください。" }),
+        renderPreview(data),
+        el("div", { class: "detail-actions" }, [send, back])
+      ])
+    );
+    result.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function renderPreview(data) {
+    const dl = el("dl", { class: "spec" });
+    const add = (label, val) => {
+      if (val == null || val === "" || (Array.isArray(val) && val.length === 0)) return;
+      dl.appendChild(el("dt", { text: label }));
+      const dd = el("dd", {});
+      if (Array.isArray(val)) {
+        const tags = el("div", { class: "tags" });
+        val.forEach((v) => tags.appendChild(el("span", { class: "tag", text: v })));
+        dd.appendChild(tags);
+      } else {
+        dd.appendChild(document.createTextNode(String(val)));
+      }
+      dl.appendChild(dd);
+    };
+    const feats = [];
+    if (data.sameDay) feats.push("即日対応あり");
+    if (data.spot) feats.push("単発・短期OK");
+
+    add("会社名", data.name + (data.nameKana ? "（" + data.nameKana + "）" : ""));
+    add("所在地", [data.region, data.prefecture, data.city].filter(Boolean).join(" / "));
+    add("業務カテゴリ", data.categories);
+    add("対応作業", data.services);
+    add("雇用・契約形態", data.employmentTypes);
+    add("対応エリア", data.coverage);
+    add("対応条件", feats);
+    add("最低手配人数", data.minWorkers ? data.minWorkers + "名" : "");
+    add("設立年", data.founded ? data.founded + "年" : "");
+    add("従業員規模", data.employees);
+    add("営業時間", data.businessHours);
+    add("料金目安", data.priceNote);
+    add("許可番号", data.license);
+    add("事業の概要", data.description);
+    add("強み", data.strengths);
+    add("公式サイト", data.website);
+    add("問い合わせ先", data.publicContact);
+    add("出典 URL", data.sourceUrl);
+    return dl;
   }
 
   function validate(form, data) {
@@ -364,7 +482,11 @@
       : "申請内容を受け付けました（現在はベータ運用のため、内容確認後に手動で反映します）。下記の内容をコピーしてお送りいただくこともできます。";
 
     const pre = el("pre", { text: JSON.stringify(data, null, 2) });
-    pre.style.cssText = "background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:.82rem;max-height:280px";
+    pre.style.cssText = "background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:.82rem;max-height:280px;margin:10px 0 0";
+    const details = el("details", {}, [
+      el("summary", { text: "送信データ（JSON）を表示", style: "cursor:pointer;font-weight:600;font-size:.9rem" }),
+      pre
+    ]);
 
     const copyBtn = el("button", { class: "btn btn-secondary btn-sm", type: "button", text: "内容をコピー" });
     copyBtn.addEventListener("click", () => {
@@ -376,7 +498,8 @@
     return el("section", { class: "panel notice-success", style: "border-width:1px" }, [
       el("h2", { text: editing ? "更新申請を受け付けました" : "掲載申請を受け付けました", style: "border:none;padding:0" }),
       el("p", { text: msg }),
-      pre,
+      renderPreview(data),
+      details,
       el("div", { class: "detail-actions" }, [copyBtn, el("a", { class: "btn btn-sm", href: "companies.html", text: "企業一覧へ" })])
     ]);
   }
