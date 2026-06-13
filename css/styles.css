@@ -1547,6 +1547,28 @@ label .opt {
   color: var(--danger);
   text-decoration: underline;
 }
+/* 差分ハイライト（各社で内容が異なる行） */
+.compare-table tr.ct-diff td {
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.compare-table tr.ct-diff th[scope="row"] {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-2));
+  box-shadow: inset 3px 0 0 var(--accent);
+  color: var(--text);
+}
+.compare-table.only-diff tbody tr:not(.ct-diff):not(.ct-action) {
+  display: none;
+}
+.compare-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.compare-toolbar .check {
+  font-weight: 700;
+}
 
 /* ---------- 通知・注意書き ---------- */
 .notice {

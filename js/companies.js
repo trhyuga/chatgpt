@@ -16,6 +16,10 @@
     sort: "updated"
   };
 
+  const PAGE_SIZE = 12; // 「もっと見る」1回あたりの表示件数
+  let shown = PAGE_SIZE;
+  let lastSig = ""; // 絞り込み条件のシグネチャ（変化したらページングをリセット）
+
   document.addEventListener("DOMContentLoaded", init);
 
   async function init() {
@@ -204,6 +208,17 @@
     syncUrl();
     renderActiveChips();
     const list = apply();
+
+    // 絞り込み条件が変わったらページング位置を先頭に戻す
+    const sig = JSON.stringify([
+      state.keyword, state.region, state.prefecture,
+      [...state.categories], [...state.employment], state.sameDay, state.spot, state.sort
+    ]);
+    if (sig !== lastSig) {
+      shown = PAGE_SIZE;
+      lastSig = sig;
+    }
+
     const box = results();
     const countEl = document.getElementById("result-count");
     if (countEl) {
@@ -224,9 +239,31 @@
           resetBtn
         ])
       );
+      renderMore(0, 0);
       return;
     }
-    list.forEach((c) => box.appendChild(createCompanyCard(c, { keyword: state.keyword, compare: true })));
+    const visible = list.slice(0, shown);
+    visible.forEach((c) => box.appendChild(createCompanyCard(c, { keyword: state.keyword, compare: true })));
+    renderMore(visible.length, list.length);
+  }
+
+  // 「もっと見る」ボタン（results の直後の #load-more に描画）
+  function renderMore(visibleCount, total) {
+    const slot = document.getElementById("load-more");
+    if (!slot) return;
+    slot.innerHTML = "";
+    if (total <= visibleCount) return;
+    const remain = total - visibleCount;
+    const btn = el("button", {
+      class: "btn btn-secondary btn-lg",
+      type: "button",
+      text: "もっと見る（残り " + remain + " 社）"
+    });
+    btn.addEventListener("click", () => {
+      shown += PAGE_SIZE;
+      render();
+    });
+    slot.appendChild(btn);
   }
 
   function renderActiveChips() {

@@ -83,17 +83,19 @@
     thead.appendChild(hr);
     table.appendChild(thead);
 
-    // ボディ：属性行
+    // ボディ：属性行（2社以上のとき、値が異なる行を強調）
     const tbody = el("tbody");
     ROWS.forEach(([label, fn]) => {
-      const tr = el("tr");
+      const vals = list.map((c) => fn(c));
+      const isDiff = list.length >= 2 && new Set(vals).size > 1;
+      const tr = el("tr", isDiff ? { class: "ct-diff" } : {});
       tr.appendChild(el("th", { scope: "row", text: label }));
-      list.forEach((c) => tr.appendChild(el("td", { text: fn(c) })));
+      vals.forEach((v) => tr.appendChild(el("td", { text: v })));
       tbody.appendChild(tr);
     });
 
     // アクション行（公式サイト / 詳細）
-    const trAction = el("tr");
+    const trAction = el("tr", { class: "ct-action" });
     trAction.appendChild(el("th", { scope: "row", text: "リンク" }));
     list.forEach((c) => {
       const cell = el("td", { class: "stack-sm" }, [
@@ -106,6 +108,18 @@
     });
     tbody.appendChild(trAction);
     table.appendChild(tbody);
+
+    // 「違いだけ表示」トグル（2社以上のとき）
+    if (list.length >= 2) {
+      const cb = el("input", { type: "checkbox", id: "only-diff" });
+      cb.addEventListener("change", () => table.classList.toggle("only-diff", cb.checked));
+      root.appendChild(
+        el("div", { class: "compare-toolbar" }, [
+          el("label", { class: "check" }, [cb, el("span", { text: "違いのある項目だけ表示する" })]),
+          el("span", { class: "hint", text: "色付きの行は各社で内容が異なる項目です" })
+        ])
+      );
+    }
 
     root.appendChild(el("div", { class: "compare-wrap" }, [table]));
 
