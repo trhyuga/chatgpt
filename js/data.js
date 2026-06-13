@@ -59,8 +59,20 @@ function findCompany(companies, id) {
  * @param {Array} companies
  * @param {{keyword?,region?,prefecture?,category?,services?:string[],employment?:string[],sameDay?:boolean,spot?:boolean}} o
  */
+/**
+ * 検索用にテキストを正規化する。
+ * - NFKC（全角/半角の統一）+ 小文字化
+ * - カタカナ→ひらがな（「イベント」と「いべんと」を同一視）
+ * これにより、ふりがな・表記ゆれに強いキーワード一致になる。
+ */
+function normalizeText(s) {
+  let t = String(s == null ? "" : s).normalize("NFKC").toLowerCase();
+  t = t.replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
+  return t;
+}
+
 function filterCompanies(companies, o) {
-  const kw = (o.keyword || "").trim().toLowerCase();
+  const kw = normalizeText(o.keyword).trim();
   const region = (o.region || "").trim();
   const prefecture = (o.prefecture || "").trim();
   const category = (o.category || "").trim();
@@ -77,11 +89,11 @@ function filterCompanies(companies, o) {
     if (o.sameDay && !c.sameDay) return false;
     if (o.spot && !c.spot) return false;
     if (kw) {
-      const hay = [
+      const hay = normalizeText([
         c.name, c.nameKana, c.description, c.prefecture, c.city, c.coverage,
         (c.services || []).join(" "), (c.areas || []).join(" "),
         (c.categories || []).join(" "), (c.strengths || []).join(" ")
-      ].join(" ").toLowerCase();
+      ].join(" "));
       if (!hay.includes(kw)) return false;
     }
     return true;
